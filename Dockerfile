@@ -1,26 +1,18 @@
-# Etapa 1: Compilación
 FROM node:20-alpine AS build
 WORKDIR /app
+
 COPY package*.json ./
-RUN npm install
+RUN npm ci
+
 COPY . .
-RUN npm run build -- --configuration=production
+RUN npm run build -- --configuration production
 
-# Etapa 2: Servidor de producción
-FROM nginx:alpine
-# Copiamos los archivos compilados al directorio de Nginx
-# OJO: Asegúrate de que el nombre de la carpeta coincida con tu dist (ej. dist/microplastics-detector/browser)
-COPY --from=build /app/dist/microplastics-detector/browser /usr/share/nginx/html
+FROM node:20-alpine AS runtime
+WORKDIR /app
 
-# Copiamos una configuración personalizada de Nginx para evitar el error 404 del router
-RUN echo 'server { \
-    listen 80; \
-    location / { \
-        root /usr/share/nginx/html; \
-        index index.html index.htm; \
-        try_files $uri $uri/ /index.html; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+RUN npm install -g serve
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=build /app/dist ./dist
+
+EXPOSE 10000
+CMD ["sh", "-c", "APP_DIR=\"$(dirname \"$(find /app/dist -type f -name index.html | head -n 1)\")\" && exec serve -s \"$APP_DIR\" -l \"${PORT:-10000}\""]
