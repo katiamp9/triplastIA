@@ -115,11 +115,13 @@
     <button 
       class="download-btn" 
       (click)="downloadPDF()"
+      type="button"
       [disabled]="isDownloading()">
+      <span class="sr-only">Descargar reporte PDF</span>
       @if (isDownloading()) {
-        <span>📥 Descargando...</span>
+        <i class="pi pi-spin pi-spinner" aria-hidden="true"></i>
       } @else {
-        <span>📥 Descargar Reporte PDF</span>
+        <i class="pi pi-download" aria-hidden="true"></i>
       }
     </button>
   </div>

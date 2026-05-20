@@ -1,8 +1,13 @@
-<div class="dashboard-layout">
+@if (!isAuthenticated) {
+  <app-login (submitted)="onLogin($event)"></app-login>
+} @else {
+
+  <div class="dashboard-layout">
   <app-sidebar
     [sidebarItems]="sidebarItems"
     [currentStepLabel]="currentSidebarLabel()"
     [onItemClick]="handleSidebarItemClick.bind(this)"
+    (signOut)="onLogout()"
   ></app-sidebar>
 
   <main class="dashboard-main">
@@ -92,3 +97,5 @@
     </section>
   </main>
 </div>
+
+}

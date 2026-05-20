@@ -1,0 +1,121 @@
+.login-root {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--app-bg);
+  padding: 2rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2.25rem;
+  box-shadow: 0 12px 30px rgba(10, 10, 30, 0.08);
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+
+.login-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin: 0 auto 0.5rem auto;
+}
+
+.login-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  color: var(--app-text);
+  font-weight: 700;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.login-error {
+  color: #b00020;
+  background: rgba(176, 0, 32, 0.05);
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.field input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  padding-right: 3.4rem;
+  border: 1px solid rgba(26, 35, 126, 0.12);
+  background: #fff;
+  color: #0b1f3a;
+  font-size: 0.95rem;
+}
+
+.field {
+  position: relative;
+}
+
+.password-field {
+  position: relative;
+}
+
+.toggle-pass {
+  position: absolute;
+  right: 0.45rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--app-text);
+  font-size: 1.05rem;
+}
+
+.toggle-pass:focus {
+  outline: 2px solid rgba(26,35,126,0.12);
+  border-radius: 6px;
+}
+
+.login-btn {
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--app-text);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.12s ease;
+}
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-btn:hover:not(:disabled) {
+  background: #0d1b5e;
+  transform: translateY(-1px);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

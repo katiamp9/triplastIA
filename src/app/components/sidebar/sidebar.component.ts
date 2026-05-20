@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
 
@@ -37,9 +37,10 @@ export class SidebarComponent {
     try {
       localStorage.clear();
     } catch {}
-    // Redirect to root (or reload)
-    window.location.href = '/';
+    this.signOut.emit();
   }
+
+  @Output() signOut = new EventEmitter<void>();
 
   trackByLabel(_index: number, item: SidebarItem) {
     return item.label;

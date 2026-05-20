@@ -5,6 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 import { WorkflowStage } from './models/analysis-result';
 import { SidebarComponent, type SidebarItem } from './components/sidebar/sidebar.component';
+import { LoginComponent } from './components/login/login.component';
 import { SampleIntakeComponent } from './components/sample-intake/sample-intake.component';
 import { NileRedStepComponent } from './components/nile-red-step/nile-red-step.component';
 import { FtirStepComponent } from './components/ftir-step/ftir-step.component';
@@ -37,11 +38,6 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
     label: 'Reporte',
     description: 'Resumen médico y auditoría',
     icon: 'pi pi-file',
-  },
-  {
-    label: 'Configuración',
-    description: 'Parámetros del pipeline analítico',
-    icon: 'pi pi-cog',
   },
 ];
 
@@ -88,7 +84,7 @@ const SIDEBAR_LABEL_TO_STEP: Partial<Record<string, WorkflowStage>> = {
 
 @Component({
   selector: 'app-root',
-  imports: [StepsModule, SidebarComponent, SampleIntakeComponent, NileRedStepComponent, FtirStepComponent, IntegratedResultsStepComponent],
+  imports: [StepsModule, SidebarComponent, SampleIntakeComponent, NileRedStepComponent, FtirStepComponent, IntegratedResultsStepComponent, LoginComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -142,6 +138,8 @@ export class App {
   protected readonly currentSidebarLabel = computed(
     () => STEP_TO_SIDEBAR_LABEL[this.activeStep()] ?? '',
   );
+
+  protected isAuthenticated = !!(typeof localStorage !== 'undefined' && localStorage.getItem('triplastia_auth'));
 
   protected readonly canGoNext = computed(() => {
     const visibleSteps = this.visibleSteps();
@@ -218,5 +216,20 @@ export class App {
     if (this.analysisStateService.canProceed(stepId)) {
       this.analysisStateService.navigateToStep(stepId);
     }
+  }
+
+  protected onLogin(_creds: { username: string; password: string }): void {
+    // On successful login, persist session
+    try {
+      localStorage.setItem('triplastia_auth', '1');
+    } catch {}
+    this.isAuthenticated = true;
+  }
+
+  protected onLogout(): void {
+    this.isAuthenticated = false;
+    try {
+      localStorage.removeItem('triplastia_auth');
+    } catch {}
   }
 }
