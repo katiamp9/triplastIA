@@ -1,0 +1,80 @@
+<div class="nile-red-analysis">
+  @if (isLoading()) {
+    <app-loading-spinner message="Cargando análisis de visión artificial..."></app-loading-spinner>
+  } @else {
+    <div class="nile-red-analysis__header">
+      <div>
+        <h4 class="nile-red-analysis__title">Análisis de visión artificial</h4>
+        <p class="nile-red-analysis__description">
+          Adquisición con Nile Red, segmentación y conteo automático de partículas microplásticas.
+        </p>
+      </div>
+
+      @if (analysisCompleted()) {
+        <div class="nile-red-analysis__status nile-red-analysis__status--completed">
+          <i class="pi pi-check-circle"></i>
+          <span>Análisis completado</span>
+        </div>
+      }
+    </div>
+
+    <div class="nile-red-analysis__content">
+      @if (hasImages()) {
+        <div class="nile-red-analysis__images-info">
+          <p class="nile-red-analysis__info-label">Imágenes cargadas:</p>
+          <ul class="nile-red-analysis__file-list">
+            @for (file of imageFiles(); track file.id) {
+              <li class="nile-red-analysis__file-item">
+                <i class="pi pi-image"></i>
+                <span class="nile-red-analysis__file-name">{{ file.fileName }}</span>
+              </li>
+            }
+          </ul>
+
+          <div class="nile-red-analysis__visualization">
+            <div class="nile-red-analysis__image-grid">
+              @for (file of imageFiles(); track file.id; let i = $index) {
+                <div class="nile-red-analysis__image-card">
+                  <div class="nile-red-analysis__image-placeholder">
+                    <i class="pi pi-image"></i>
+                    <span>Imagen {{ i + 1 }}</span>
+                  </div>
+                  <p class="nile-red-analysis__image-name">{{ file.fileName }}</p>
+                </div>
+              }
+            </div>
+
+            <div class="nile-red-analysis__metrics">
+              <div class="nile-red-analysis__metric">
+                <span class="nile-red-analysis__metric-label">Partículas detectadas</span>
+                <span class="nile-red-analysis__metric-value">{{ (imageFiles().length * 12 + 8) }}</span>
+              </div>
+              <div class="nile-red-analysis__metric">
+                <span class="nile-red-analysis__metric-label">Confianza promedio</span>
+                <span class="nile-red-analysis__metric-value">{{ (92 + imageFiles().length).toFixed(0) }}%</span>
+              </div>
+              <div class="nile-red-analysis__metric">
+                <span class="nile-red-analysis__metric-label">Área segmentada</span>
+                <span class="nile-red-analysis__metric-value">{{ (45.3 + imageFiles().length * 2.1).toFixed(1) }}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="nile-red-analysis__empty">
+          <i class="pi pi-inbox"></i>
+          <p>No se cargó ninguna imagen</p>
+        </div>
+      }
+    </div>
+
+    @if (!analysisCompleted()) {
+      <div class="nile-red-analysis__actions">
+        <button type="button" class="nile-red-analysis__btn nile-red-analysis__btn--primary" (click)="completeAnalysis()">
+          <i class="pi pi-check"></i>
+          Completar análisis
+        </button>
+      </div>
+    }
+  }
+</div>

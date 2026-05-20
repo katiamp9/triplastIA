@@ -1,0 +1,126 @@
+<div class="results-container">
+  <div class="results-header">
+    <h1>📊 Reporte Análisis Final</h1>
+    <p class="subtitle">Resultados consolidados de todas las pruebas realizadas</p>
+  </div>
+
+  <div #reportContent class="report-content">
+    <!-- Header del reporte -->
+    <div class="report-header">
+      <h2>REPORTE DE ANÁLISIS - TRIPLAST IA</h2>
+      <p>{{ currentState().uploadedFiles.length }} muestras analizadas</p>
+      <p class="date">Fecha: {{ today | date: 'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+
+    <!-- Sección Nile Red -->
+    @if (nileRedResults().enabled) {
+      <div class="result-section nile-red-section">
+        <div class="section-header">
+          <div class="icon">🔴</div>
+          <h2>Análisis Nile Red - Visión Artificial</h2>
+          <span class="status" [class.completed]="nileRedResults().completed">
+            {{ nileRedResults().completed ? '✓ Completado' : '⏳ Pendiente' }}
+          </span>
+        </div>
+
+        @if (nileRedResults().completed) {
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-label">Partículas Detectadas</div>
+              <div class="metric-value">{{ nileRedResults().metrics.particleCount }}</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Confianza Promedio</div>
+              <div class="metric-value">{{ nileRedResults().metrics.averageConfidence }}</div>
+              <div class="metric-unit">%</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Área Total Detectada</div>
+              <div class="metric-value">{{ nileRedResults().metrics.totalArea }}</div>
+              <div class="metric-unit">px²</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Tamaño Promedio</div>
+              <div class="metric-value">{{ nileRedResults().metrics.avgParticleSize }}</div>
+              <div class="metric-unit">μm</div>
+            </div>
+          </div>
+        } @else {
+          <div class="no-data">Esta prueba no fue completada</div>
+        }
+      </div>
+    }
+
+    <!-- Sección FTIR -->
+    @if (ftirResults().enabled) {
+      <div class="result-section ftir-section">
+        <div class="section-header">
+          <div class="icon">🔵</div>
+          <h2>Análisis FTIR - Espectroscopía Infrarroja</h2>
+          <span class="status" [class.completed]="ftirResults().completed">
+            {{ ftirResults().completed ? '✓ Completado' : '⏳ Pendiente' }}
+          </span>
+        </div>
+
+        @if (ftirResults().completed) {
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-label">Picos Principales Detectados</div>
+              <div class="metric-value">{{ ftirResults().metrics.primaryPeaks }}</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Compuesto Identificado</div>
+              <div class="metric-value-text">{{ ftirResults().metrics.compoundIdentified }}</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Puntuación de Pureza</div>
+              <div class="metric-value">{{ ftirResults().metrics.purityScore }}</div>
+              <div class="metric-unit">%</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Confianza del Match</div>
+              <div class="metric-value">{{ ftirResults().metrics.matchConfidence }}</div>
+              <div class="metric-unit">%</div>
+            </div>
+          </div>
+        } @else {
+          <div class="no-data">Esta prueba no fue completada</div>
+        }
+      </div>
+    }
+
+    <!-- Conclusiones -->
+    <div class="conclusions-section">
+      <h3>📋 Conclusiones</h3>
+      <p>
+        Se ha realizado un análisis integral de las muestras utilizando las metodologías 
+        seleccionadas. Los resultados obtenidos son consistentes y se encuentran dentro 
+        de los parámetros esperados para este tipo de análisis.
+      </p>
+      <p>
+        Los datos pueden ser utilizados para tomar decisiones informadas respecto a 
+        la calidad y composición de las muestras analizadas.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="report-footer">
+      <p>Generado por Triplast IA - Sistema de Análisis Automatizado</p>
+      <p>Todos los datos son confidenciales y de uso exclusivo del cliente</p>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <div class="controls">
+    <button 
+      class="download-btn" 
+      (click)="downloadPDF()"
+      [disabled]="isDownloading()">
+      @if (isDownloading()) {
+        <span>📥 Descargando...</span>
+      } @else {
+        <span>📥 Descargar Reporte PDF</span>
+      }
+    </button>
+  </div>
+</div>

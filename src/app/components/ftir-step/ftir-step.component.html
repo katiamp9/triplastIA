@@ -1,0 +1,66 @@
+<div class="ftir-analysis">
+  @if (isLoading()) {
+    <app-loading-spinner message="Cargando análisis FTIR..."></app-loading-spinner>
+  } @else {
+    <div class="ftir-analysis__header">
+      <div>
+        <h4 class="ftir-analysis__title">Análisis {{ spectrumLabel() }}</h4>
+        <p class="ftir-analysis__description">
+          Lectura de espectro, identificación de polímeros y clasificación química de las partículas.
+        </p>
+      </div>
+
+      @if (analysisCompleted()) {
+        <div class="ftir-analysis__status ftir-analysis__status--completed">
+          <i class="pi pi-check-circle"></i>
+          <span>Análisis completado</span>
+        </div>
+      }
+    </div>
+
+    <div class="ftir-analysis__content">
+      @if (spectralFiles().length > 0) {
+        <div class="ftir-analysis__spectrum-info">
+          <p class="ftir-analysis__info-label">Archivos espectrales cargados:</p>
+          <ul class="ftir-analysis__file-list">
+            @for (file of spectralFiles(); track file.id) {
+              <li class="ftir-analysis__file-item">
+                <i class="pi pi-file"></i>
+                <span class="ftir-analysis__file-name">{{ file.fileName }}</span>
+              </li>
+            }
+          </ul>
+
+          @if (spectralData().length > 0) {
+            <div class="ftir-analysis__spectrum-viz">
+              <p class="ftir-analysis__viz-label">Datos espectrales:</p>
+              <div class="ftir-analysis__spectrum-bars">
+                @for (value of spectralData(); track $index) {
+                  <div
+                    class="ftir-analysis__bar"
+                    [style.height.%]="value * 100"
+                    [attr.title]="(value * 100).toFixed(1) + '%'"
+                  ></div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="ftir-analysis__empty">
+          <i class="pi pi-inbox"></i>
+          <p>No se cargó ningún archivo espectral</p>
+        </div>
+      }
+    </div>
+
+    @if (!analysisCompleted()) {
+      <div class="ftir-analysis__actions">
+        <button type="button" class="ftir-analysis__btn ftir-analysis__btn--primary" (click)="completeAnalysis()">
+          <i class="pi pi-check"></i>
+          Completar análisis
+        </button>
+      </div>
+    }
+  }
+</div>

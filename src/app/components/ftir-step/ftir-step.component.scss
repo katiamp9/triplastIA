@@ -1,0 +1,211 @@
+.ftir-analysis {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ftir-analysis__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem 1.75rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(26, 35, 126, 0.12);
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.06);
+}
+
+.ftir-analysis__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  color: #1A237E;
+  font-weight: 600;
+}
+
+.ftir-analysis__description {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(26, 35, 126, 0.65);
+  line-height: 1.5;
+}
+
+.ftir-analysis__status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.8rem;
+  background: rgba(26, 35, 126, 0.08);
+  border: 1px solid rgba(26, 35, 126, 0.12);
+  color: rgba(26, 35, 126, 0.72);
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ftir-analysis__status--completed {
+  background: rgba(76, 175, 80, 0.1);
+  border-color: rgba(76, 175, 80, 0.3);
+  color: #4CAF50;
+}
+
+.ftir-analysis__status--completed i {
+  color: #4CAF50;
+}
+
+.ftir-analysis__content {
+  padding: 1.5rem 1.75rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(26, 35, 126, 0.12);
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.06);
+  min-height: 8rem;
+}
+
+.ftir-analysis__spectrum-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ftir-analysis__info-label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1A237E;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ftir-analysis__file-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ftir-analysis__file-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(26, 35, 126, 0.04);
+  border: 1px solid rgba(26, 35, 126, 0.08);
+  border-radius: 0.5rem;
+  color: rgba(26, 35, 126, 0.72);
+  font-size: 0.9rem;
+}
+
+.ftir-analysis__file-item i {
+  color: rgba(26, 35, 126, 0.4);
+  font-size: 1rem;
+}
+
+.ftir-analysis__file-name {
+  word-break: break-all;
+}
+
+.ftir-analysis__spectrum-viz {
+  margin-top: 0.5rem;
+}
+
+.ftir-analysis__viz-label {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(26, 35, 126, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ftir-analysis__spectrum-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 6rem;
+  gap: 0.35rem;
+  padding: 1rem 0.5rem;
+  background: rgba(26, 35, 126, 0.02);
+  border: 1px solid rgba(26, 35, 126, 0.1);
+  border-radius: 0.5rem;
+}
+
+.ftir-analysis__bar {
+  flex: 1;
+  background: linear-gradient(to top, #1A237E, #3949AB);
+  border-radius: 0.2rem;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+  min-height: 2px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.ftir-analysis__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+  color: rgba(26, 35, 126, 0.4);
+  text-align: center;
+
+  i {
+    font-size: 3rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+}
+
+.ftir-analysis__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.ftir-analysis__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.ftir-analysis__btn--primary {
+  background: #1A237E;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background: #0d1257;
+    box-shadow: 0 0.5rem 1rem rgba(26, 35, 126, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  i {
+    font-size: 1rem;
+  }
+}

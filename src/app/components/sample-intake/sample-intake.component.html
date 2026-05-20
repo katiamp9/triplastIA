@@ -1,0 +1,103 @@
+<section class="sample-intake">
+  @if (isLoading()) {
+    <app-loading-spinner message="Procesando archivos..." [overlay]="true"></app-loading-spinner>
+  }
+
+  <header class="sample-intake__header">
+    <p class="sample-intake__eyebrow">Nueva muestra</p>
+    <h3>Carga inicial de archivos</h3>
+    <p>
+      Arrastra y suelta archivos de la muestra o selecciónalos manualmente para iniciar el
+      procesamiento.
+    </p>
+  </header>
+
+  <div class="sample-intake__grid">
+    <div class="sample-intake__uploader">
+      <p-fileupload
+        #fileUpload
+        name="sampleFiles[]"
+        mode="advanced"
+        [multiple]="true"
+        [customUpload]="true"
+        accept=".csv,.txt,.jdx,.spc,.jpg,.jpeg,.png,.tif,.tiff"
+        chooseLabel="Seleccionar archivo"
+        [showUploadButton]="false"
+        [showCancelButton]="false"
+        [maxFileSize]="100000000"
+        (onSelect)="onFileSelect($event)"
+      >
+        <ng-template pTemplate="empty">
+          <div class="sample-intake__empty">
+            <i class="pi pi-upload"></i>
+            <span>Drag & Drop aquí o usa "Seleccionar archivo"</span>
+          </div>
+        </ng-template>
+      </p-fileupload>
+
+      @if (showSpectrumModeSelector()) {
+        <div class="sample-intake__special-mode">
+          <p class="sample-intake__special-mode-title">Archivo JDX detectado</p>
+          <p>Elige cómo procesarlo:</p>
+          <p-selectButton
+            [options]="spectrumModes"
+            [ngModel]="selectedSpectrumModeValue"
+            (ngModelChange)="changeSpectrumMode($event)"
+          ></p-selectButton>
+        </div>
+      }
+
+      <div class="sample-intake__footer">
+        <span class="sample-intake__status">{{ statusLabel }}</span>
+        <button type="button" class="sample-intake__continue" [disabled]="!canContinue()" (click)="analyzeSample()">
+          Analizar
+        </button>
+      </div>
+    </div>
+
+    <aside class="sample-intake__checklist">
+      <p class="sample-intake__checklist-title">Tipos simulados de archivo</p>
+
+      @for (format of supportedFormats; track format.kind) {
+        <article class="sample-intake__checklist-item" [class.sample-intake__checklist-item--active]="isActiveFormat(format.kind)">
+          <i [class]="format.icon"></i>
+
+          <div>
+            <strong>{{ format.title }}</strong>
+            <p>{{ format.extensions }}</p>
+            <small>{{ format.description }}</small>
+          </div>
+        </article>
+      }
+
+      @if (state().validationMessage) {
+        <div class="sample-intake__validation">
+          <i class="pi pi-exclamation-triangle"></i>
+          <span>{{ state().validationMessage }}</span>
+        </div>
+      }
+    </aside>
+  </div>
+
+  @if (selectedFiles().length > 0) {
+    <div class="sample-intake__selected">
+      <strong>Archivos seleccionados:</strong>
+      <ul>
+        @for (file of selectedFiles(); track file.id) {
+          <li>
+            <span>
+              {{ file.fileName }}
+              <small>({{ file.kind === 'image' ? 'Imagen' : 'Espectro' }})</small>
+            </span>
+            <button type="button" class="sample-intake__remove" (click)="removeFile(file.id)" aria-label="Eliminar archivo">
+              <i class="pi pi-times"></i>
+            </button>
+          </li>
+        }
+      </ul>
+      <button type="button" class="sample-intake__clear-all" (click)="clearSelectedFiles()">
+        Limpiar todo
+      </button>
+    </div>
+  }
+</section>

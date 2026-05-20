@@ -1,0 +1,94 @@
+<div class="dashboard-layout">
+  <app-sidebar
+    [sidebarItems]="sidebarItems"
+    [currentStepLabel]="currentSidebarLabel()"
+    [onItemClick]="handleSidebarItemClick.bind(this)"
+  ></app-sidebar>
+
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <div>
+        <p class="dashboard-header__eyebrow">Pipeline de análisis</p>
+        <h2>Dashboard principal</h2>
+        <p class="dashboard-header__subtitle">
+          Flujo guiado para capturar, clasificar y reportar microplásticos detectados en sangre.
+        </p>
+        @if (analysisState().validationMessage) {
+          <p class="dashboard-header__warning">{{ analysisState().validationMessage }}</p>
+        }
+      </div>
+
+      <div class="dashboard-header__status">
+        <span class="dashboard-header__status-dot"></span>
+        <div>
+          <strong>{{ analysisResult().sampleId }}</strong>
+          <span>Estado: {{ analysisResult().status }}</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="workflow-card">
+      <div class="workflow-card__heading">
+        <div>
+          <p class="dashboard-header__eyebrow">Flujo de análisis</p>
+          <h3>{{ currentStep().label }}</h3>
+        </div>
+
+        <span class="workflow-card__caption">{{ currentStep().description }}</span>
+      </div>
+
+      <p-steps [model]="stepItems()" [activeIndex]="activeStepIndex()" [readonly]="false"></p-steps>
+
+      @if (stepRestrictionMessages().length > 0) {
+        <div class="workflow-restrictions">
+          @for (restriction of stepRestrictionMessages(); track restriction.step) {
+            <p>
+              <i class="pi pi-ban"></i>
+              <strong>{{ restriction.step }}:</strong>
+              <span>{{ restriction.message }}</span>
+            </p>
+          }
+        </div>
+      }
+
+      @if (analysisStarted()) {
+        <div class="workflow-card__actions">
+          <button
+            type="button"
+            class="workflow-button workflow-button--ghost"
+            (click)="goToPreviousStep()"
+            [disabled]="activeStepIndex() === 0"
+          >
+            Anterior
+          </button>
+
+          <button
+            type="button"
+            class="workflow-button workflow-button--primary"
+            (click)="goToNextStep()"
+            [disabled]="!canGoNext()"
+          >
+            Siguiente
+          </button>
+        </div>
+      }
+    </section>
+
+    <section class="module-surface">
+      @switch (currentStep().id) {
+        @case ('sample-intake') {
+          <app-sample-intake-step></app-sample-intake-step>
+        }
+        @case ('nile-red') {
+          <app-nile-red-step></app-nile-red-step>
+        }
+        @case ('ftir-classification') {
+          <app-ftir-step></app-ftir-step>
+        }
+        @case ('integrated-results') {
+          <app-integrated-results-step></app-integrated-results-step>
+        }
+      }
+    </section>
+  </main>
+</div>

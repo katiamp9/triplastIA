@@ -1,0 +1,48 @@
+<aside class="sidebar">
+  <!-- Brand Block - Estilo NexaVerse -->
+  <div class="sidebar__brand">
+    <div class="flex flex-column align-items-center justify-content-center w-full gap-2">
+      <!-- Logo -->
+      <div class="sidebar__logo-container">
+        <img
+          src="assets/images/4805413070-Photoroom.png"
+          alt="TriplastIA Logo"
+          class="sidebar__logo"
+        />
+      </div>
+
+      <!-- Brand Text -->
+      <div class="text-center">
+        <h1 class="sidebar__brand-title">TriplastIA</h1>
+        <p class="sidebar__brand-subtitle">Monitoreo de microplásticos</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="sidebar__nav" aria-label="Secciones principales">
+    <button
+      *ngFor="let item of sidebarItems; trackBy: trackByLabel"
+      type="button"
+      class="sidebar__item"
+      [class.sidebar__item--active]="item.label === currentStepLabel"
+      [attr.aria-current]="item.label === currentStepLabel ? 'page' : null"
+      (click)="protectedOnNavItemClick(item)"
+    >
+      <span class="sidebar__icon"><i [class]="item.icon"></i></span>
+
+      <span class="sidebar__copy">
+        <span class="sidebar__title">{{ item.label }}</span>
+        <span class="sidebar__description" *ngIf="item.description">{{ item.description }}</span>
+      </span>
+    </button>
+  </nav>
+
+  <!-- Footer / Logout -->
+  <footer class="sidebar__footer">
+    <button type="button" class="sidebar__logout" (click)="logout()">
+      <span class="sidebar__logout-icon"><i class="pi pi-sign-out"></i></span>
+      <span class="sidebar__logout-label">Cerrar sesión</span>
+    </button>
+  </footer>
+</aside>

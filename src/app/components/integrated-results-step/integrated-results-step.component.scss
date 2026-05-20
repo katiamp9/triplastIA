@@ -1,0 +1,310 @@
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100%;
+  border-radius: 12px;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 1rem;
+  animation: slideDown 0.6s ease-out;
+
+  h1 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+  }
+}
+
+.report-content {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.report-header {
+  text-align: center;
+  border-bottom: 3px solid #f0f0f0;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 1.8rem;
+    color: #000;
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0.3rem 0;
+    color: #333;
+    font-size: 0.95rem;
+  }
+
+  .date {
+    color: #555;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+}
+
+.result-section {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 5px solid;
+  background: #f9f9f9;
+  animation: slideUp 0.6s ease-out;
+
+  &.nile-red-section {
+    border-left-color: #e74c3c;
+    background: rgba(231, 76, 60, 0.05);
+  }
+
+  &.ftir-section {
+    border-left-color: #3498db;
+    background: rgba(52, 152, 219, 0.05);
+  }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  .icon {
+    font-size: 2rem;
+  }
+
+  h2 {
+    flex: 1;
+    margin: 0;
+    color: #000;
+    font-size: 1.4rem;
+  }
+
+  .status {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: #fff3cd;
+    color: #856404;
+    white-space: nowrap;
+
+    &.completed {
+      background: #d4edda;
+      color: #155724;
+    }
+  }
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.metric-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 2px solid #eee;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .metric-label {
+    font-size: 0.85rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .metric-value {
+    font-size: 2rem;
+    color: #000;
+    font-weight: 700;
+    margin: 0.5rem 0;
+  }
+
+  .metric-value-text {
+    font-size: 1rem;
+    color: #000;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    word-break: break-word;
+  }
+
+  .metric-unit {
+    font-size: 0.75rem;
+    color: #555;
+    font-weight: 500;
+  }
+}
+
+.no-data {
+  padding: 2rem;
+  text-align: center;
+  color: #333;
+  background: white;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.conclusions-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #e8f4f8;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+
+  h3 {
+    margin-top: 0;
+    color: #000;
+    font-size: 1.2rem;
+  }
+
+  p {
+    margin: 0.8rem 0;
+    color: #222;
+    line-height: 1.6;
+    font-size: 0.95rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.report-footer {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #eee;
+  text-align: center;
+  color: #555;
+  font-size: 0.85rem;
+
+  p {
+    margin: 0.3rem 0;
+
+    &:first-child {
+      font-weight: 600;
+      color: #000;
+    }
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.download-btn {
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: slideUp 0.6s ease-out 0.4s both;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Modo impresión de alto contraste - NO NECESARIO CON PDFMAKE
+// Los estilos de impresión se definen en el objeto docDefinition del PDF
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Estilos para impresión/PDF
+@media print {
+  .controls {
+    display: none;
+  }
+
+  .results-header {
+    display: none;
+  }
+
+  .report-content {
+    box-shadow: none;
+    padding: 0;
+    background: white;
+  }
+
+  body {
+    background: white;
+  }
+}
