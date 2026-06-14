@@ -75,7 +75,7 @@ export class IntegratedResultsStepComponent {
         pageMargins: [40, 40, 40, 40],
         header: {
           margin: [40, 20, 40, 0],
-          text: 'REPORTE DE ANÁLISIS - TRIPLAST IA',
+          text: 'REPORTE DE ANÁLISIS - MICROTRACE AI',
           style: 'header'
         },
         content: this.buildReportContent(),
@@ -134,7 +134,7 @@ export class IntegratedResultsStepComponent {
       };
 
       pdfMake.createPdf(docDefinition).download(
-        `Reporte_Análisis_Triplast_${new Date().toLocaleDateString('es-ES').replace(/\//g, '_')}.pdf`
+        `Reporte_Análisis_MicroTrace_AI_${new Date().toLocaleDateString('es-ES').replace(/\//g, '_')}.pdf`
       );
     } catch (error) {
       console.error('Error generating PDF:', error);
@@ -288,7 +288,7 @@ export class IntegratedResultsStepComponent {
 
     // Footer
     content.push({
-      text: 'Generado por Triplast IA - Sistema de Análisis Automatizado',
+      text: 'Generado por MicroTrace AI - Sistema de Análisis Automatizado',
       style: 'footerText',
       margin: [0, 20, 0, 5]
     });
